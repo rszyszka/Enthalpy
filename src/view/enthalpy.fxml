@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="rootAnchorPane" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="810.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/8.0.201"
+            fx:controller="controller.EnthalpyController">
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <MenuBar>
+            <Menu mnemonicParsing="false" text="Plik">
+                <MenuItem mnemonicParsing="false" onAction="#loadFile" text="Wczytaj plik"/>
+                <MenuItem fx:id="saveChartMenuItem" mnemonicParsing="false" onAction="#saveChart"
+                          text="Zapisz wykres jako..."/>
+                <MenuItem fx:id="saveResultsMenuItem" mnemonicParsing="false" onAction="#saveResults"
+                          text="Zapisz wyniki jako..."/>
+                <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Wyjdź"/>
+            </Menu>
+        </MenuBar>
+        <HBox prefHeight="520.0" prefWidth="863.0" VBox.vgrow="ALWAYS">
+            <VBox HBox.hgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets right="20.0"/>
+                </HBox.margin>
+                <LineChart fx:id="lineChart" prefHeight="576.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+                    <xAxis>
+                        <NumberAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT"/>
+                    </yAxis>
+                </LineChart>
+            </VBox>
+            <VBox prefHeight="574.0" prefWidth="500.0">
+                <AnchorPane>
+                    <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="475.0"
+                           text="© Copyright 2019 - Rafał Szyszka"
+                           textFill="#9f9f9f" AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0"
+                           AnchorPane.topAnchor="0.0">
+                        <font>
+                            <Font size="13.0"/>
+                        </font>
+                    </Label>
+                </AnchorPane>
+                <Separator prefWidth="200.0"/>
+                <Label alignment="CENTER" prefHeight="20.0" prefWidth="1000.0" text="Przemiany">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <VBox prefHeight="493.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tableView" prefWidth="500.0" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="tempStartColumn" maxWidth="-1.0" minWidth="125.0"
+                                         prefWidth="-1.0" text="Temp_start [°C]"/>
+                            <TableColumn fx:id="tempStopColumn" maxWidth="-1.0" minWidth="125.0"
+                                         prefWidth="-1.0" text="Temp_stop [°C]"/>
+                            <TableColumn fx:id="energyColumn" maxWidth="-1.0" minWidth="125.0"
+                                         prefWidth="-1.0" text="Entalpia [J/g]"/>
+                            <TableColumn fx:id="decompositionColumn" maxWidth="-1.0"
+                                         minWidth="125.0" prefWidth="-1.0" text="Rozkład"/>
+                        </columns>
+                    </TableView>
+                    <VBox prefHeight="78.0" prefWidth="500.0">
+                        <VBox.margin>
+                            <Insets top="5.0"/>
+                        </VBox.margin>
+                        <HBox prefWidth="500.0">
+                            <VBox prefWidth="80.0" HBox.hgrow="ALWAYS">
+                                <Label alignment="CENTER" contentDisplay="CENTER"
+                                       prefWidth="500.0" text="Temp_start [°C]"
+                                       textAlignment="CENTER"/>
+                                <TextField fx:id="tempStartField"/>
+                            </VBox>
+                            <Separator orientation="VERTICAL" prefHeight="51.0"
+                                       prefWidth="0.0">
+                                <HBox.margin>
+                                    <Insets left="4.0"/>
+                                </HBox.margin>
+                            </Separator>
+                            <VBox prefWidth="80.0" HBox.hgrow="ALWAYS">
+                                <Label alignment="CENTER" contentDisplay="CENTER"
+                                       prefWidth="500.0" text="Temp_stop [°C]"
+                                       textAlignment="CENTER"/>
+                                <TextField fx:id="tempStopField"/>
+                            </VBox>
+                            <Separator orientation="VERTICAL" prefHeight="200.0">
+                                <HBox.margin>
+                                    <Insets left="4.0"/>
+                                </HBox.margin>
+                            </Separator>
+                            <VBox prefWidth="80.0" HBox.hgrow="ALWAYS">
+                                <Label alignment="CENTER" prefWidth="500.0"
+                                       text="Entalpia [J/g]"/>
+                                <TextField fx:id="energyField"/>
+                            </VBox>
+                            <Separator orientation="VERTICAL" prefHeight="200.0">
+                                <HBox.margin>
+                                    <Insets left="4.0"/>
+                                </HBox.margin>
+                            </Separator>
+                            <VBox prefHeight="51.0" prefWidth="140.0" HBox.hgrow="ALWAYS">
+                                <Label alignment="CENTER" prefWidth="500.0"
+                                       text="Rozkład"/>
+                                <ComboBox fx:id="decompositionComboBox"
+                                          prefWidth="500.0"/>
+                            </VBox>
+                        </HBox>
+                        <Separator prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets bottom="5.0" top="5.0"/>
+                            </VBox.margin>
+                        </Separator>
+                        <HBox>
+                            <VBox.margin>
+                                <Insets bottom="10.0"/>
+                            </VBox.margin>
+                            <AnchorPane prefHeight="26.0" prefWidth="62.0"
+                                        HBox.hgrow="ALWAYS">
+                                <HBox.margin>
+                                    <Insets right="5.0" top="1.0"/>
+                                </HBox.margin>
+                                <Button onAction="#addTransformation" prefHeight="26.0"
+                                        prefWidth="134.0" text="Dodaj"
+                                        AnchorPane.leftAnchor="0.0"/>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="27.0" prefWidth="155.0">
+                                <HBox.margin>
+                                    <Insets left="35.0"/>
+                                </HBox.margin>
+                                <Button layoutX="3.0" onAction="#editTransformation"
+                                        prefHeight="27.0" prefWidth="134.0"
+                                        text="Edytuj" AnchorPane.bottomAnchor="0.0"
+                                        AnchorPane.leftAnchor="0.0"
+                                        AnchorPane.rightAnchor="0.0"
+                                        AnchorPane.topAnchor="0.0"/>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="28.0" prefWidth="200.0"
+                                        HBox.hgrow="ALWAYS">
+                                <HBox.margin>
+                                    <Insets left="5.0" top="1.0"/>
+                                </HBox.margin>
+                                <Button onAction="#deleteTransformation"
+                                        prefHeight="26.0" prefWidth="134.0" text="Usuń"
+                                        AnchorPane.rightAnchor="0.0"/>
+                            </AnchorPane>
+                        </HBox>
+                        <Separator prefWidth="200.0"/>
+                        <HBox>
+                            <VBox.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </VBox.margin>
+                            <AnchorPane prefHeight="26.0" prefWidth="162.0">
+                                <HBox.margin>
+                                    <Insets left="55.0"/>
+                                </HBox.margin>
+                                <Button onAction="#drawChart" prefHeight="26.0"
+                                        prefWidth="134.0" text="Przelicz i rysuj wykres"
+                                        AnchorPane.bottomAnchor="0.0"
+                                        AnchorPane.leftAnchor="0.0"
+                                        AnchorPane.rightAnchor="0.0"
+                                        AnchorPane.topAnchor="0.0"/>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="26.0" prefWidth="203.0">
+                                <Button layoutX="16.0" onAction="#clearChart"
+                                        prefHeight="26.0" prefWidth="134.0"
+                                        text="Wyczyść wykres"
+                                        AnchorPane.rightAnchor="0.0"/>
+                            </AnchorPane>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</AnchorPane>
