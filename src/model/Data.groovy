@@ -10,7 +10,7 @@ class Data {
     private List<Double> activationEnergy = []
 
 
-    static void copyValues(Data destination, Data source) {
+    static void copyValues(Data source, Data destination) {
         destination.temperatures = source.temperatures.collect()
         destination.activationEnergy = source.activationEnergy.collect()
         destination.specificHeats = source.specificHeats.collect()
@@ -41,13 +41,13 @@ class Data {
             bufferedReader.close()
         }
         catch (FileNotFoundException ignored) {
-            throw new CustomException("Nie można otworzyć pliku '" + file.name + "'")
+            throw new CustomException("Plik '" + file.name + "' nie istnieje.")
         }
         catch (IOException ignored) {
-            throw new CustomException("Błąd podczas odczytu pliku '" + file.name + "'")
+            throw new CustomException("Błąd podczas odczytu pliku '" + file.name + "'.")
         }
         catch (Exception ignored) {
-            throw new CustomException("Nie można odczytać pliku '" + file.name + "' - Zły format danych")
+            throw new CustomException("Nie można odczytać pliku '" + file.name + "' - Zły format danych.")
         }
         interpolateSpecificHeats()
         temperatures.eachWithIndex { it, i ->
