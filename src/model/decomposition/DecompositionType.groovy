@@ -1,6 +1,6 @@
-package model
+package model.decomposition
 
-enum Decomposition {
+enum DecompositionType {
     EQUAL("Równomierny"),
     AT_START("Na początku"),
     AT_END("Na końcu"),
@@ -12,7 +12,7 @@ enum Decomposition {
 
     private final String name
 
-    private Decomposition(String s) {
+    private DecompositionType(String s) {
         name = s
     }
 

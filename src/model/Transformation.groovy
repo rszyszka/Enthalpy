@@ -1,17 +1,23 @@
 package model
 
+import model.decomposition.DecompositionType
+
+
 class Transformation {
+
     private int temp_start
     private int temp_stop
     private double energy
-    private Decomposition decomposition
+    private DecompositionType decompositionType
 
-    Transformation(int temp_start, int temp_stop, double energy, Decomposition decomposition) {
+
+    Transformation(int temp_start, int temp_stop, double energy, DecompositionType decompositionType) {
         this.temp_start = temp_start
         this.temp_stop = temp_stop
         this.energy = energy
-        this.decomposition = decomposition
+        this.decompositionType = decompositionType
     }
+
 
     int getTemp_start() {
         return temp_start
@@ -37,11 +43,11 @@ class Transformation {
         this.energy = energy
     }
 
-    Decomposition getDecomposition() {
-        return decomposition
+    DecompositionType getDecompositionType() {
+        return decompositionType
     }
 
-    void setDecomposition(Decomposition decomposition) {
-        this.decomposition = decomposition
+    void setDecompositionType(DecompositionType decompositionType) {
+        this.decompositionType = decompositionType
     }
 }

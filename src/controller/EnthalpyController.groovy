@@ -16,11 +16,10 @@ import javafx.stage.FileChooser
 import javafx.stage.Stage
 import model.CustomException
 import model.Data
-import model.Decomposition
 import model.Transformation
+import model.decomposition.DecompositionType
 
 import javax.imageio.ImageIO
-
 
 class EnthalpyController {
 
@@ -51,7 +50,7 @@ class EnthalpyController {
     @FXML
     TextField energyField
     @FXML
-    ComboBox<Decomposition> decompositionComboBox
+    ComboBox<DecompositionType> decompositionComboBox
     @FXML
     MenuItem saveResultsMenuItem
     @FXML
@@ -80,7 +79,7 @@ class EnthalpyController {
                 new PropertyValueFactory<Transformation, Double>("energy")
         )
         decompositionColumn.setCellValueFactory(
-                new PropertyValueFactory<Transformation, Decomposition>("decomposition")
+                new PropertyValueFactory<Transformation, DecompositionType>("decompositionType")
         )
         tableView.setEditable(true)
         tableView.setItems(transformations)
@@ -95,7 +94,7 @@ class EnthalpyController {
 
 
     private void initializeDecompositionComboBox() {
-        decompositionComboBox.setItems(FXCollections.observableArrayList(Decomposition.values()))
+        decompositionComboBox.setItems(FXCollections.observableArrayList(DecompositionType.values()))
         decompositionComboBox.getSelectionModel().selectFirst()
     }
 
@@ -198,7 +197,7 @@ class EnthalpyController {
         PrintWriter writer = new PrintWriter(file)
         writer.println("PRZEMIANY")
         transformations.eachWithIndex { it, i ->
-            writer.println("Przemiana $i Temp_start: $it.temp_start [°C] Temp_stop: $it.temp_stop [°C] Entalpia: $it.energy [J/g] Rozkład: $it.decomposition")
+            writer.println("Przemiana $i Temp_start: $it.temp_start [°C] Temp_stop: $it.temp_stop [°C] Entalpia: $it.energy [J/g] Rozkład: $it.decompositionType")
         }
         writer.println("\nWYNIKI")
         writer.println("Temperatura [°C]\tEntalpia [J/g]")
@@ -228,7 +227,7 @@ class EnthalpyController {
             checkOverlappingConditions(temp_start, temp_stop)
 
             double energy = Double.parseDouble(energyField.getText())
-            Decomposition decomposition = decompositionComboBox.getSelectionModel().getSelectedItem()
+            DecompositionType decomposition = decompositionComboBox.getSelectionModel().getSelectedItem()
 
             Transformation transformation = new Transformation(temp_start, temp_stop, energy, decomposition)
             transformations.add(transformation)
@@ -246,7 +245,7 @@ class EnthalpyController {
         Transformation selectedItem = tableView.getSelectionModel().getSelectedItem()
         if (selectedItem) {
             try {
-                Decomposition decomposition = decompositionComboBox.getSelectionModel().getSelectedItem()
+                DecompositionType decomposition = decompositionComboBox.getSelectionModel().getSelectedItem()
                 double energy = Double.parseDouble(energyField.getText())
                 int temp_start = Integer.parseInt(tempStartField.getText())
                 int temp_stop = Integer.parseInt(tempStopField.getText())
@@ -256,7 +255,7 @@ class EnthalpyController {
                 selectedItem.temp_start = temp_start
                 selectedItem.temp_stop = temp_stop
                 selectedItem.energy = energy
-                selectedItem.decomposition = decomposition
+                selectedItem.decompositionType = decomposition
 
                 tableView.refresh()
 
