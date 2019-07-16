@@ -1,7 +1,7 @@
 package model.decomposition
 
-
 import static model.decomposition.DecompositionType.*
+
 
 abstract class Decomposition {
 
